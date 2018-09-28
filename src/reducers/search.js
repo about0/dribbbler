@@ -1,63 +1,42 @@
+// @flow
+
 import {
   createActions,
   handleActions,
   combineActions,
   handleAction
-} from 'redux-actions'
-import { increment, decrement, setSearchTerm } from './../actions'
+} from "redux-actions";
+import { increment, searchTerm, setSearchTerm } from "./../actions";
 
-const INITIAL_STATE = {
-  counter: 0,
-  term: ''
-}
+type State = {
+  +term: string
+};
 
-// export default (state = INITIAL_STATE, action) => {
-//   switch (action.type) {
-//     case 'GET_TERM':
-//       return {
-//         term: state.term
-//       }
+type Action = {
+  type: string
+};
 
-//     default:
-//       return state
-//   }
-// }
-
+const INITIAL_STATE: State = {
+  term: ""
+};
 // const reducer = handleActions(
 //   {
-//     [combineActions(increment, decrement)]: (
-//       state,
-//       { payload: { amount } }
-//     ) => {
-//       return { ...state, counter: state.counter + amount }
-//     },
-//     [setSearchTerm]: (state, { payload: { term } }) => {
-//       return { ...state, term: term }
+//     [setSearchTerm]: (state, action) => {
+//       return { ...state, term: action.payload };
 //     }
 //   },
 //   INITIAL_STATE
-// )
+// );
 
-const reducer = handleActions(
-  new Map(
-    [
-      increment,
-      (state, action) => ({
-        counter: state.counter + action.payload
-      })
-    ],
-    decrement,
-    (state, action) => ({
-      counter: state.counter - action.payload
-    }),
-    [
-      setSearchTerm,
-      (state, action) => ({
-        term: action.payload
-      })
-    ]
-  ),
-  INITIAL_STATE
-)
+function reducer(state: State = INITIAL_STATE, action: Action): State {
+  switch (action.type) {
+    case searchTerm.type:
+      return { ...state, term: action.term };
 
-export default reducer
+    default:
+      (action: empty);
+      return state;
+  }
+}
+
+export default reducer;

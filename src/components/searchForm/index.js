@@ -1,20 +1,30 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+// @flow
 
-import SearchForm from './form'
-import { setSearchTerm } from './../../actions'
-class Search extends Component {
-  handleSearch = e => {
-    console.log(e)
-  }
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import type { Dispatch } from "redux";
+import SearchForm from "./form";
+import { setSearchTerm } from "./../../actions";
+import { submitSearch } from "../../actions";
+
+type Props = {
+  term: number,
+  setTerm: Function,
+  submitSearch: Function
+};
+
+class Search extends Component<Props> {
+  handleSearch = () => {
+    this.props.submitSearch();
+  };
 
   handleTermChange = ({ target }) => {
-    const { setTerm } = this.props
-    setTerm(target.value)
-  }
+    const { setTerm } = this.props;
+    setTerm(target.value);
+  };
 
   render() {
-    const { term } = this.props
+    const { term } = this.props;
     return (
       <div>
         <SearchForm
@@ -25,19 +35,22 @@ class Search extends Component {
         />
         <div>{term}</div>
       </div>
-    )
+    );
   }
 }
 
 const mapStateToProps = state => ({
   term: state.search.term
-})
+});
 
-const mapDispatchToProps = dispatch => ({
-  setTerm: value => dispatch(setSearchTerm(value))
-})
+const mapDispatchToProps = (dispatch: Dispatch<*>) => {
+  return {
+    setTerm: value => dispatch(setSearchTerm(value)),
+    submitSearch: () => dispatch(submitSearch)
+  };
+};
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Search)
+)(Search);

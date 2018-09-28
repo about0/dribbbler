@@ -1,30 +1,42 @@
-import React from 'react'
-import { Field, reduxForm } from 'redux-form'
-import MyField from './Field'
-import { Button } from '@material-ui/core'
+// @flow
 
-let SearchForm = props => {
-  const { handleSubmit, placeholders, onSubmit, handleSubmitInfo, onChangeTerm } = props
+import React from "react";
+import { Field, reduxForm } from "redux-form";
+import MyField from "./Field";
+import { Button } from "@material-ui/core";
+
+type Props = {
+  placeholders: ?string
+};
+
+let SearchForm = (props: Props) => {
+  const {
+    handleSubmit,
+    placeholders,
+    onSubmit,
+    handleSubmitInfo,
+    onChangeTerm
+  } = props;
 
   return (
-    <form onSubmit={handleSubmit((e) => handleSubmitInfo(e))}>
+    <form onSubmit={handleSubmit(e => handleSubmitInfo(e))}>
       <Field
-        component={'input'}
-        name='searchTerm'
+        component={"input"}
+        name="searchTerm"
         placeholder={placeholders.searchTerm}
-        label='Search'
-        onChange={(e) => onChangeTerm(e)}
+        label="Search"
+        onChange={e => onChangeTerm(e)}
       />
-      <Button>Search</Button>
+      <Button type="submit">Search</Button>
     </form>
-  )
-}
+  );
+};
 
 SearchForm = reduxForm({
-  form: 'search',
+  form: "search",
   placeholders: {
-    searchTerm: 'Search Art here'
+    searchTerm: "Search Art here"
   }
-})(SearchForm)
+})(SearchForm);
 
-export default SearchForm
+export default SearchForm;

@@ -1,5 +1,15 @@
-import { createAction } from 'redux-actions'
+// @flow
 
-export const increment = createAction('INCREMENT')
-export const decrement = createAction('DECREMENT')
-export const setSearchTerm = createAction('SET_SEARCH_TERM')
+type Action = {
+  type: string,
+  term: string
+};
+
+export const increment: Action = { type: "INCREMENT" };
+export const decrement: Action = { type: "DECREMENT" };
+export const searchTerm: Action = { type: "SET_SEARCH_TERM" };
+export const submitSearch: Action = { type: "SUBMIT_SEARCH" };
+
+export function setSearchTerm(term): Action {
+  return { ...searchTerm, term };
+}
